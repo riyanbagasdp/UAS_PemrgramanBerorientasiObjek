@@ -77,7 +77,7 @@ public class ManisVar3 extends BahandanHarga implements Topping,Filling {
 
     public void cetak(){
         int totalSemua = (int) (tepung2+gula2+butter2+ragi2+sBubuk2+sCair2+telur2+es2+ fillingKeju + hargaKj + fillingSosis + hargaSs); 
-        int hpp1 = (int) (totalSemua / pesanManisVar2);
+        int hpp1 = (int) (totalSemua / pesanManisVar3);
         int hpp2 = hpp1 + (hpp1 * 50/100);
         System.out.println("CETAK BAHAN ROTI Manis Var 3");
         System.out.println("----------------------------------------------------");
