@@ -4,7 +4,7 @@
 ***         EDIT ../build.xml INSTEAD         ***
 
 For the purpose of easier reading the script
-is divided doubleo following sections:
+is divided into following sections:
 
   - initialization
   - compilation
@@ -19,7 +19,7 @@ is divided doubleo following sections:
   - cleanup
 
         -->
-<project xmlns:j2seproject1="http://www.netbeans.org/ns/j2se-project/1" xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:jaxrpc="http://www.netbeans.org/ns/j2se-project/jax-rpc" basedir=".." default="default" name="TokoRoti-impl">
+<project xmlns:j2seproject1="http://www.netbeans.org/ns/j2se-project/1" xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:jaxrpc="http://www.netbeans.org/ns/j2se-project/jax-rpc" basedir=".." default="default" name="BakeryKelompok3-impl">
     <fail message="Please build using Ant 1.8.0 or higher.">
         <condition>
             <not>
@@ -243,7 +243,7 @@ is divided doubleo following sections:
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-ap-cmdline-properties" if="ap.supported.doubleernal" name="-init-macrodef-javac-with-processors">
+    <target depends="-init-ap-cmdline-properties" if="ap.supported.internal" name="-init-macrodef-javac-with-processors">
         <macrodef name="javac" uri="http://www.netbeans.org/ns/j2se-project/3">
             <attribute default="${src.dir}" name="srcdir"/>
             <attribute default="${build.classes.dir}" name="destdir"/>
@@ -274,17 +274,17 @@ is divided doubleo following sections:
                     <compilerarg line="${javac.compilerargs}"/>
                     <compilerarg value="-processorpath"/>
                     <compilerarg path="@{processorpath}:${empty.dir}"/>
-                    <compilerarg line="${ap.processors.doubleernal}"/>
+                    <compilerarg line="${ap.processors.internal}"/>
                     <compilerarg line="${annotation.processing.processor.options}"/>
                     <compilerarg value="-s"/>
                     <compilerarg path="@{apgeneratedsrcdir}"/>
-                    <compilerarg line="${ap.proc.none.doubleernal}"/>
+                    <compilerarg line="${ap.proc.none.internal}"/>
                     <customize/>
                 </javac>
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-ap-cmdline-properties" name="-init-macrodef-javac-without-processors" unless="ap.supported.doubleernal">
+    <target depends="-init-ap-cmdline-properties" name="-init-macrodef-javac-without-processors" unless="ap.supported.internal">
         <macrodef name="javac" uri="http://www.netbeans.org/ns/j2se-project/3">
             <attribute default="${src.dir}" name="srcdir"/>
             <attribute default="${build.classes.dir}" name="destdir"/>
@@ -443,7 +443,7 @@ is divided doubleo following sections:
                     </fileset>
                 </union>
                 <taskdef classname="org.testng.TestNGAntTask" classpath="${run.test.classpath}" name="testng"/>
-                <testng classfilesetref="test.set" failureProperty="tests.failed" listeners="org.testng.reporters.VerboseReporter" methods="${testng.methods.arg}" mode="${testng.mode}" outputdir="${build.test.results.dir}" suitename="TokoRoti" testname="TestNG tests" workingDir="${work.dir}">
+                <testng classfilesetref="test.set" failureProperty="tests.failed" listeners="org.testng.reporters.VerboseReporter" methods="${testng.methods.arg}" mode="${testng.mode}" outputdir="${build.test.results.dir}" suitename="BakeryKelompok3" testname="TestNG tests" workingDir="${work.dir}">
                     <xmlfileset dir="${build.test.classes.dir}" includes="@{testincludes}"/>
                     <propertyset>
                         <propertyref prefix="test-sys-prop."/>
@@ -594,7 +594,7 @@ is divided doubleo following sections:
                 <condition else="-testclass @{testClass}" property="test.class.or.method" value="-methods @{testClass}.@{testMethod}">
                     <isset property="test.method"/>
                 </condition>
-                <condition else="-suitename TokoRoti -testname @{testClass} ${test.class.or.method}" property="testng.cmd.args" value="@{testClass}">
+                <condition else="-suitename BakeryKelompok3 -testname @{testClass} ${test.class.or.method}" property="testng.cmd.args" value="@{testClass}">
                     <matches pattern=".*\.xml" string="@{testClass}"/>
                 </condition>
                 <delete dir="${build.test.results.dir}" quiet="true"/>
@@ -858,22 +858,22 @@ is divided doubleo following sections:
         <property name="annotation.processing.run.all.processors" value="true"/>
         <property name="javac.processorpath" value="${javac.classpath}"/>
         <property name="javac.test.processorpath" value="${javac.test.classpath}"/>
-        <condition property="ap.supported.doubleernal" value="true">
+        <condition property="ap.supported.internal" value="true">
             <not>
                 <matches pattern="1\.[0-5](\..*)?" string="${javac.source}"/>
             </not>
         </condition>
     </target>
-    <target depends="-init-ap-cmdline-properties" if="ap.supported.doubleernal" name="-init-ap-cmdline-supported">
-        <condition else="" property="ap.processors.doubleernal" value="-processor ${annotation.processing.processors.list}">
+    <target depends="-init-ap-cmdline-properties" if="ap.supported.internal" name="-init-ap-cmdline-supported">
+        <condition else="" property="ap.processors.internal" value="-processor ${annotation.processing.processors.list}">
             <isfalse value="${annotation.processing.run.all.processors}"/>
         </condition>
-        <condition else="" property="ap.proc.none.doubleernal" value="-proc:none">
+        <condition else="" property="ap.proc.none.internal" value="-proc:none">
             <isfalse value="${annotation.processing.enabled}"/>
         </condition>
     </target>
     <target depends="-init-ap-cmdline-properties,-init-ap-cmdline-supported" name="-init-ap-cmdline">
-        <property name="ap.cmd.line.doubleernal" value=""/>
+        <property name="ap.cmd.line.internal" value=""/>
     </target>
     <target depends="-pre-init,-init-private,-init-user,-init-project,-do-init,-post-init,-init-check,-init-macrodef-property,-init-macrodef-javac,-init-macrodef-test,-init-macrodef-test-debug,-init-macrodef-nbjpda,-init-macrodef-debug,-init-macrodef-java,-init-presetdef-jar,-init-ap-cmdline" name="init"/>
     <!--
@@ -886,7 +886,7 @@ is divided doubleo following sections:
         <delete file="${built-jar.properties}" quiet="true"/>
     </target>
     <target if="already.built.jar.${basedir}" name="-warn-already-built-jar">
-        <echo level="warn" message="Cycle detected: TokoRoti was already built"/>
+        <echo level="warn" message="Cycle detected: BakeryKelompok3 was already built"/>
     </target>
     <target depends="init,-deps-jar-init" name="deps-jar" unless="no.deps">
         <mkdir dir="${build.dir}"/>
@@ -1066,10 +1066,10 @@ is divided doubleo following sections:
         </j2seproject3:debug>
     </target>
     <target depends="init,compile,-debug-start-debugger,-debug-start-debuggee" description="Debug project in IDE." if="netbeans.home" name="debug"/>
-    <target depends="init" if="netbeans.home" name="-debug-start-debugger-stepdoubleo">
+    <target depends="init" if="netbeans.home" name="-debug-start-debugger-stepinto">
         <j2seproject1:nbjpdastart stopclassname="${main.class}"/>
     </target>
-    <target depends="init,compile,-debug-start-debugger-stepdoubleo,-debug-start-debuggee" if="netbeans.home" name="debug-stepdoubleo"/>
+    <target depends="init,compile,-debug-start-debugger-stepinto,-debug-start-debuggee" if="netbeans.home" name="debug-stepinto"/>
     <target depends="init,compile-single" if="netbeans.home" name="-debug-start-debuggee-single">
         <fail unless="debug.class">Must select one file in the IDE or set debug.class</fail>
         <j2seproject3:debug classname="${debug.class}"/>
@@ -1094,7 +1094,7 @@ is divided doubleo following sections:
                 =================
             -->
     <!--
-                pre NB7.2 profiler doubleegration
+                pre NB7.2 profiler integration
             -->
     <target depends="profile-init,compile" description="Profile a project in the IDE." if="profiler.info.jvmargs.agent" name="-profile-pre72">
         <fail unless="netbeans.home">This target only works when run from inside the NetBeans IDE.</fail>
@@ -1371,7 +1371,7 @@ is divided doubleo following sections:
         <delete file="${built-clean.properties}" quiet="true"/>
     </target>
     <target if="already.built.clean.${basedir}" name="-warn-already-built-clean">
-        <echo level="warn" message="Cycle detected: TokoRoti was already built"/>
+        <echo level="warn" message="Cycle detected: BakeryKelompok3 was already built"/>
     </target>
     <target depends="init,-deps-clean-init" name="deps-clean" unless="no.deps">
         <mkdir dir="${build.dir}"/>
